@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Recommendation{% endblock %}
+
+{% block content %}
+{% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<h2>Movie Recommendation</h2>
+<br>
+{% if recommendation %}
+<p>Since you are feeling like watching something in the mood of <strong> {{ selected_tag|default:"movies" }} </strong>, here is your recommendation:</p>
+     <p><strong>Genre:</strong> {{ recommendation.movie.genre }}</p>
+    <p><strong>Description:</strong> {{ recommendation.content }}</p>
+    <p><strong>When to watch:</strong> {{recommendation.mood}}</p>
+    <p><strong>Who will like it:</strong> {{recommendation.audience}}</p>
+    <p><strong>Standout feature of the movie cherry-picked for you:</strong>{{recommendation.cherry}}</p>
+    <p>This movie is recommended to you by <strong>{{ recommendation.user }} </strong></p>
+    <p><a href="{% url 'movie' recommendation.movie.pk %}">View Movie Details</a></p>
+{% elif error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+{% if cover_url %}
+    <img src="{{ cover_url }}" alt="Movie Cover" style="max-width: 200px;">
+{% else %}
+    <p>No cover available</p>
+{% endif %}
+
+{% if recommendation %}
+    <form action="{% url 'skip_recommendation' recommendation.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="skip-btn">Feeling picky today? Skip to the next</button>
+    </form>
+{% else %}
+    <form>
+       <button type="button" class="skip-btn" disabled>
+           No more recommendations for this tag
+       </button>
+    </form>
+{% endif %}
+
+<hr>
+    <p>
+        <a href="">Log in</a> or
+        <a href="">Sign up</a> to submit your own recommendations and get more perks!
+    </p>
+
+{% endblock %}

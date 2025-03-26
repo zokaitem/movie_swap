@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Add a movie{% endblock %}
+
+{% block content %}
+
+<h2>Add a New Movie</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Movie</button>
+</form>
+
+<p>
+    <a href="{% url 'submit_recommendation' %}">Back to Recommendations</a>
+</p>
+
+{% endblock %}

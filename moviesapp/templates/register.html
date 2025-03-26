@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+
+    <div class="container register">
+        <h3>Sign up</h3><br/>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">User name</label>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+                <small id="usernameHelp" class="form-text text-muted">Up to 150 characters.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We do not share your personal data with third parties.
+                     </small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="pwdHelp">
+                <small id="pwdHelp" class="form-text text-muted">At least 8 symbols. Ensure the password contains numbers, letters, special symbols. Password can't consist of numbers only.
+                    </small>
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm</label>
+                <input name="password2" type="password" class="form-control" id="password2" aria-describedby="pwd2Help">
+            </div>
+            <button type="submit" class="btn btn-primary register-button">Sign up</button>
+        </form>
+        <p>If you've signed up before, <a href="{% url 'login' %}"><strong>log in.</strong></a></p>
+    </div>
+
+{% endblock %}

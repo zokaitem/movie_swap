@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<h2>Movie Recommendation</h2>
+
+{% if recommendation %}
+    <p>Since you are feeling like watching something <strong> {{ recommendation.tag }} </strong> today, here is your recommendation</p>
+    <p><strong>{{ recommendation.movie.title }}</strong> ({{ recommendation.movie.year }})</p>
+    <p>Genre: {{ recommendation.movie.genre }}</p>
+    <p>{{ recommendation.content }}</p>
+    <p>This movie is recommended to you by {{ recommendation.user }}</p>
+
+{% if can_skip %}
+<form action="{% url 'skip_recommendation' recommendation.id %}" method="post" style="margin-top: 10px;">
+    {% csrf_token %}
+    <button type="submit" class="skip-btn">Feeling picky today? Skip one</button>
+</form>
+{% else %}
+<p>You’ve already used your skip for today!</p>
+{% endif %}
+
+
+ <form action="{% url 'save_recommendation' recommendation.id %}" method="post">
+        {% csrf_token %}
+        <button type='submit'>Save to My List</button>
+    </form>
+
+{% if received_but_not_submitted %}
+    <p>Want more? You need to give one to get one! Submit a recommendation of any movie you love to receive more</p>
+    <a href="{% url 'submit_recommendation' %}" class="btn"> Submit Recommendation</a>
+<!--    {% else %}-->
+<!--    <form action="{% url 'get_recommendation_user' %}" method="get">-->
+<!--         <button type='submit'>Get Another Recommendation</button>-->
+<!--    </form>-->
+    {% endif %}
+{% endif %}

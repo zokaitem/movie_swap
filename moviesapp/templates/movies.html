@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Movies{% endblock %}
+
+
+{% block content %}
+  <h2>Featured Movies:</h2>
+  <hr>
+  <div class="row">
+    {% for movie in movies %}
+      <div class="col-md-4 d-flex align-items-stretch">
+        <div class="card mb-4 shadow-sm" style="width: 300px">
+          {% if movie.cover %}
+            <img src="{{ movie.cover.url }}" class="card-img-top" alt="Movie Cover" style="max-width: 200px;">
+          {% else %}
+            <img class="card-img-top" src="{% static 'img/noimage.jpg' %}" alt="No Image">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text"><a href="{% url 'movie' movie.pk %}">{{ movie.title }}</a></p>
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </div><div class="row">
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}
+

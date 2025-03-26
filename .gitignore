@@ -1,0 +1,22 @@
+# Ignore my_settings.py
+mysite/my_settings.py
+
+
+# Ignore database files
+*.sqlite3
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore logs
+*.log
+
+# Ignore virtual environment
+venv/
+.env/

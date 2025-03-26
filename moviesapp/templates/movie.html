@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Movie{% endblock %}
+
+{% block content %}
+<p><strong>Title: </strong>{{ movie.title }}</p>
+<p><strong>Director: </strong>{{ movie.director }}</p>
+<p><strong>Year of release: </strong>{{ movie.release_year }}</p>
+<p><strong>Genre: </strong>{{ movie.genre }}</p>
+<p>{{ movie.synopsis }}</p>
+
+{% if movie.cover %}
+    <img src="{{ movie.cover.url }}" alt="Movie Cover" style="max-width: 200px;">
+{% else %}
+    <p>No cover available</p>
+{% endif %}
+
+
+{% endblock %}

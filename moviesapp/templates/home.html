@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Swap - Home{% endblock %}
+
+
+
+{% block content %}
+{% load static %}
+<!--banner-->
+
+<div class="banner">
+    <img src="{% static 'img/pexels-movies.jpg' %}" alt="Website Banner" class="img-fluid">
+</div>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h1 class="margin"> <strong> Cinema Circle </strong> </h1>
+  <h2 class="margin"> <strong> Stop Scrolling, Start Watching </strong> </h2>
+  <hr>
+<!--    watchlist, collections,watch journals, collaborate to create collections-->
+  <h3 class="margin">Swap recommendations with fellow movie enthusiasts, create collections, track what you've been watching</h3>
+<!--  <img src="{% static 'img/matrix.jpeg' %}"  class="img-fluid" style="width: 60%; height: auto; border-radius: 12px;" alt="Movie collage" width="450" height="450">-->
+</div>
+
+<!-- class="img-responsive img-circle margin" style="display:inline" -->
+
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin"></h3>
+  <p>Discover hidden gems and must-see classics through personalized recommendations from fellow film enthusiasts. Swap your favorite movie suggestions with others, explore new genres, and find your next obsession — all in one place. </p>
+
+  <form method="GET" action="{% url 'get_recommendation_guest' %}">
+    <label for="tag">Select a mood or genre:</label>
+    <select name="tag" id="tag">
+        <option value="" {% if not selected_tag %}selected{% endif %}>Any</option>
+        {% for tag in tags %}
+            <option value="{{ tag.name }}" {% if tag.name == selected_tag %}selected{% endif %}>
+                {{ tag.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Get Recommendation</button>
+</form>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'submit_recommendation' %}" class="btn btn-primary btn-lg">Submit Recommendation</a>
+  {% else %}
+    <p><a href="{% url 'login' %}?next={% url 'submit_recommendation' %}">Log in to submit recommendations</a></p>
+  {% endif %}
+</div>
+
+</div>
+
+
+<!-- Third Container (grid) -->
+<div class="container-fluid bg-3 text-center">
+  <h3 class="margin">Featured Movies</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+  </div>
+</div>
+
+{% endblock %}
