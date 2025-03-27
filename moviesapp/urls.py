@@ -23,6 +23,7 @@ from.views import (get_recommendation_guest,
                    register,
                    MovieListView,
                    MovieDetailView,
+                   profile,
                    )
 
 from . import views
@@ -36,7 +37,8 @@ urlpatterns = [
     path('add-movie/', add_movie, name='add_movie'),
     path('register/', register, name='register'),
     path('movies/',MovieListView.as_view(), name='movies'),
-    path('movie/<int:pk>/', MovieDetailView.as_view(), name='movie')
+    path('movie/<int:pk>/', MovieDetailView.as_view(), name='movie'),
+    path('profile/', profile, name='profile'),
 ]
 
 urlpatterns += [

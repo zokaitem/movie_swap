@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 try:
-    from .my_settings import SECRET_KEY, DEBUG, EMAIL_HOST_PASSWORD
+    from .my_settings import SECRET_KEY, DEBUG, EMAIL_HOST_PASSWORD, TMDB_API_KEY
 except ImportError:
     raise Exception("my_settings.py file is missing or variables are not defined.")
 
@@ -29,11 +29,15 @@ ALLOWED_HOSTS = []
 
 SECRET_KEY = SECRET_KEY
 DEBUG = DEBUG
+TMDB_API_KEY=TMDB_API_KEY
 
 # Application definition
 
 INSTALLED_APPS = [
+    'tinymce',
     'moviesapp',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,3 +143,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'cinema@circle.com'
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

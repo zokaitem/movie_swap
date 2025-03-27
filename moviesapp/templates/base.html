@@ -117,7 +117,7 @@
 
           <li><a href="{% url 'movies' %}">Browse Movies</a></li>
           <li><a href="{% url 'submit_recommendation' %}">Submit recommendation</a></li>
-          <li><a class="nav-link" href="#"> {{ user.get_username }}</a></li>
+          <li><a class="nav-link" href="{% url 'profile' %}"> {{ user.get_username }}</a></li>
         <li>
           <a href="#" onclick="document.getElementById('logout-form').submit();">Log out</a>
   <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
