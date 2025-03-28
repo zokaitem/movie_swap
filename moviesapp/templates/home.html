@@ -52,23 +52,39 @@
 </div>
 
 
-<!-- Third Container (grid) -->
-<div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Featured Movies</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-  </div>
+<!-- Third Container (top rated from TMDB API) -->
+<h2>Top Rated Movies</h2>
+<div class="top-rated-container">
+    {% for movie in top_rated_movies %}
+        <div class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
+            <h3>{{ movie.title }}</h3>
+            <p>⭐ {{ movie.vote_average }}</p>
+        </div>
+    {% endfor %}
 </div>
+
+<!-- Link to see the full list -->
+<a href="{% url 'top-rated' %}" class="see-full-list-link">See full list</a>
+
+
+
+<!--<div class="container-fluid bg-3 text-center">-->
+<!--  <h3 class="margin">Featured Movies</h3><br>-->
+<!--  <div class="row">-->
+<!--    <div class="col-sm-4">-->
+<!--      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--      <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
+<!--    </div>-->
+<!--    <div class="col-sm-4">-->
+<!--      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--      <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
+<!--    </div>-->
+<!--    <div class="col-sm-4">-->
+<!--      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--      <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 {% endblock %}

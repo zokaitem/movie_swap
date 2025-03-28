@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
   <title>{% block title %}Home{% endblock %}</title>
 
   <title>Bootstrap Theme Simply Me</title>
@@ -11,6 +12,52 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
+
+<!--style for top-rated section-->
+
+  .top-rated-wrapper {
+    width: 100%; /* Ensure it takes full width */
+}
+
+.top-rated-container {
+    display: flex; /* Or use grid if you prefer */
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.movie-card {
+    width: 150px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+.see-full-list-link {
+    display: block;
+    margin-top: 10px;
+    color: #ff4500;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+<!--TMDB logo-->
+
+.tmdb-logo-footer {
+    margin-top: 20px;
+  }
+
+  .tmdb-logo-img {
+    max-width: 200px;
+    height: auto;
+  }
+
+
   body {
     font: 20px Montserrat, sans-serif;
     line-height: 1.8;
@@ -159,6 +206,11 @@
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
   <p>2025 Cinema Circle | Made with ❤️ by Film Lovers</p>
+    <div class="tmdb-logo-footer">
+        <a href="https://www.themoviedb.org" target="_blank">
+            <img src="{% static 'img/blue_long_logo.svg' %}" alt="TMDb logo" class="tmdb-logo-img img-fluid">
+        </a>
+    </div>
 </footer>
 
 </body>

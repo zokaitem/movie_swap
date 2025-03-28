@@ -9,14 +9,59 @@ from django.contrib.auth import password_validation
 from .forms import RecommendationForm, MovieForm, UserUpdateForm, ProfileUpdateForm
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.views import generic
+from django.conf import settings
+import requests
 import random
 
 def index(request):
     tags = Tag.objects.all()
-    trending_movies = MovieRecommendation.objects.order_by('-created_at')[:5]  # trending logic
-    return render(request, 'home.html', {'trending_movies': trending_movies,
+    url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={settings.TMDB_API_KEY}&language=en-US&page=1"
+
+    response = requests.get(url)
+    data = response.json()
+
+    top_rated_movies = data.get('results', []) [:7]
+    # trending_movies = MovieRecommendation.objects.order_by('-created_at')[:5]  # trending logic
+
+    return render(request, 'home.html', {'top_rated_movies': top_rated_movies,
                                          'tags': tags})
+
+def top_rated_movies(request):
+    url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={settings.TMDB_API_KEY}&language=en-US&page=1"
+
+    page_number = request.GET.get('page', 1)
+    top_rated_movies = []
+    error_message = None
+    total_pages = 1
+
+    try:
+        for page in range(1, 26):  # TMDB allows up to 500 pages, but fetching too many might cause rate limits
+            url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={settings.TMDB_API_KEY}&language=en-US&page={page}"
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+            top_rated_movies.extend(data.get('results', []))
+            total_pages = data.get('total_pages')
+            if page >= total_pages:
+                break
+
+        paginator = Paginator(top_rated_movies, 20)
+        page_obj = paginator.get_page(page_number)
+
+
+    except requests.exceptions.RequestException as e:
+        error_message = f"An error occurred while fetching top-rated movies: {e}"
+
+    except Exception as e:
+        error_message = f"An unexpected error occurred: {e}"
+
+    return render(request, 'top_rated.html', {'page_obj': page_obj if not error_message else [],
+                                              'error_message': error_message,
+                                              'total_pages': total_pages,
+                                              'top_rated_movies': top_rated_movies,
+                                         })
 
 
 def get_recommendation_guest(request):
@@ -172,6 +217,18 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, "profile.html", context=context)
+
+
+def get_popular_movies(request):
+    url = f"https://api.themoviedb.org/3/movie/popular?api_key={settings.TMDB_API_KEY}&language=en-US&page=1"
+    response = requests.get(url)
+    data = response.json()
+
+    context = {
+        'movies': data.get('results', [])
+    }
+    return render(request, 'popular.html', context)
+
 
 # for testing
 # def test_cover(request):
