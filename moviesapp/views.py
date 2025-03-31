@@ -37,7 +37,7 @@ def top_rated_movies(request):
     total_pages = 1
 
     try:
-        for page in range(1, 26):  # TMDB allows up to 500 pages, but fetching too many might cause rate limits
+        for page in range(1, 26):
             url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={settings.TMDB_API_KEY}&language=en-US&page={page}"
             response = requests.get(url)
             response.raise_for_status()
@@ -147,7 +147,7 @@ def add_movie(request):
 @csrf_protect
 def register(request):
     if request.method == "POST":
-        # pasiimame reikšmes iš registracijos formos
+
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
@@ -171,7 +171,7 @@ def register(request):
                             messages.error(request, error)
                         return redirect('register')
 
-                    # jeigu viskas tvarkoje, sukuriame naują vartotoją
+
                     User.objects.create_user(username=username, email=email, password=password)
                     messages.info(request, f'User {username} registered!')
                     return redirect('login')

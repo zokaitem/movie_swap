@@ -32,7 +32,7 @@ class MovieRecommendation(models.Model):
     content = models.TextField(verbose_name="Recommendation description")
     audience = models.TextField(verbose_name="Type of viewer who will enjoy the movie")
     mood = models.TextField(verbose_name="When to watch", null=True, blank=True)
-    cherry = models.TextField(verbose_name="Cherry on top", null=True, blank=True, help_text="What was the standout moment for you in the movie? It could be a meaningful line of dialogue, a visually stunning scene, or a moment that resonated with you long after the movie ended") #a quote or visual or whatever sticket out the most for you in the movie
+    cherry = models.TextField(verbose_name="Cherry on top", null=True, blank=True)
     user = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tag, verbose_name="Mood tag")
     created_at = models.DateTimeField(auto_now_add = True)

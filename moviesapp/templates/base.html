@@ -41,7 +41,7 @@
 .see-full-list-link {
     display: block;
     margin-top: 10px;
-    color: #ff4500;
+    color: #bbc0c3;;
     text-decoration: none;
     font-weight: bold;
 }
@@ -61,10 +61,12 @@
   body {
     font: 20px Montserrat, sans-serif;
     line-height: 1.8;
-    color: #f5f6f7;
+<!--    color: #f5f6f7;-->
+    color: #dbdfe2;  /* #f5f6f7; */
+    background-color: #121212;
   }
   h1 {font: 45 px Montserrat, sans-serif;
-  color: #62696f;
+  color: #dbdfe2;   /* #62696f; */
   transition: filter 0.3s ease;}
 
   h1:hover {
@@ -72,17 +74,22 @@
 }
 
   h2 {font: 27px Montserrat, sans-serif;
-  color: #62696f !important;}
+  color: #dbdfe2 !important;}
 
   h3
   {font: 20px Montserrat, sans-serif;
-  color: #62696f !important; }
+  color: #dbdfe2 !important; }
+
+  a {color: #dbdfe2;
+  }
+
+  label {color: #dbdfe2; }
 
   p {font-size: 16px;
-  color: #62696f !important; }
+  color: #dbdfe2; !important; }
 
   button {font-size: 16px;
-  color: #62696f !important;
+  color: #bfc5c9 !important;
    border-radius:20 px;}
 
   td, th {color: #62696f !important;
@@ -96,16 +103,19 @@
 
   .margin {margin-bottom: 45px;}
   .bg-1 {
-    background-color: #ffffff !important; /* Green #1abc9c;  */
+    background-color: #121212; !important; /* Green #1abc9c;  */
     color: #ffffff;
   }
   .bg-2 {
-    background-color: #af9e9e; /* Dark Blue #474e5d */
+<!--    background-color: #af9e9e; /* Dark Blue #474e5d */-->
+<!--    color: #ffffff;-->
+
     color: #ffffff;
+    background-color: #121212;
   }
   .bg-3 {
-    background-color: #ffffff; /* White */
-    color: #555555;
+    background-color: #121212;
+    color: #ffffff;
   }
   .bg-4 {
     background-color: #2f2f2f; /* Black Gray */
@@ -123,6 +133,8 @@
     margin-bottom: 0;
     font-size: 12px;
     letter-spacing: 5px;
+    color: #f5f6f7; /* Light text color for readability on dark background */
+    background-color: #121212;
   }
   .navbar-nav  li a:hover {
     color: #1abc9c !important;
@@ -134,9 +146,9 @@
 }
 
     .banner img {
-    width: 100%; /* full width */
-    height: 400px; /* height  */
-    object-fit: cover; /* Crops the image to fill the area without distortion */
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
     object-position: bottom;
 
 
@@ -159,7 +171,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
 
-        <li><a href="#">Newsletter</a></li>
+<!--        <li><a href="#">Newsletter</a></li>-->
         {% if user.is_authenticated %}
 
           <li><a href="{% url 'movies' %}">Browse Movies</a></li>
